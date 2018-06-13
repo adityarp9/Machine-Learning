@@ -161,9 +161,9 @@ def main():
     p = 8
     xTr_norm_p = polyFeatures(xTr_norm, p)
     xVa_norm_p = polyFeatures(xVa_norm, p)
-    hypers['max_epochs'] = 500
+    hypers['max_epochs'] = 200
     hypers['lr'] = 0.009
-    hypers['lambda'] = 1.0
+    hypers['lambda'] = 0.0
     theta = initParams(xTr_norm_p.shape[1])
     for epoch in range(hypers['max_epochs']):
         #print("Parameters:\n{}".format(theta))
@@ -172,7 +172,7 @@ def main():
     # Plotting poly-regressor fit
     bk.output_file("line2.html")
     x_plot = np.squeeze(xTr_norm[:, 1:])
-    y_plot = np.squeeze(np.squeeze(data[3]))
+    y_plot = np.squeeze(model(xTr_norm_p, theta))
     x_min = np.min(x_plot)
     x_max = np.max(x_plot)
     f = interp1d(x_plot, y_plot, kind="quadratic")
